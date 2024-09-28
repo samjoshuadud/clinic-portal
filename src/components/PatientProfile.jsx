@@ -12,10 +12,6 @@ function PatientProfile() {
   const [showDetails, setShowDetails] = useState(false);
   const [showSurgeryDetails, setShowSurgeryDetails] = useState(false); // State to manage hidden input
   
-
-
-  
-
   const [loading, setLoading] = useState(false);
 
   const toggleDetails = async () => {
@@ -170,7 +166,7 @@ function PatientProfile() {
 
         <div className="bg-white shadow-2xl rounded-3xl overflow-hidden">
           <div className="px-6 py-8 bg-[#5F337A]">
-            <h2 className="text-3xl font-extrabold text-white text-center"><span className="text-[#FFFF8D]">Member</span> Profile</h2>
+            <h2 className="text-3xl font-extrabold text-white text-center"><span className="text-[#FFFF8D]">Patient</span> Profile</h2>
           </div>
 
           <div className="p-6 sm:p-10">
@@ -283,10 +279,6 @@ function PatientProfile() {
               />
             </div>
           )}
-              
-
-             
-
                 <div className="flex justify-end space-x-4">
 
 

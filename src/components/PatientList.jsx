@@ -123,7 +123,7 @@ function PatientList() {
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
-      <h2 className="text-2xl font-bold mb-6 text-[#492c5a]">Faculty List</h2>
+      <h2 className="text-2xl font-bold mb-6 text-[#492c5a]">Patient List</h2>
       
       {/* Button to Open Modal */}
       <button 
@@ -131,7 +131,7 @@ function PatientList() {
         onClick={() => setIsModalOpen(true)}
       >
         <Plus className="w-5 h-5 mr-2" />
-        Add New Faculty Member
+        Add New Patient
       </button>
   
       {/* Modal for Adding New Patient */}
@@ -139,7 +139,7 @@ function PatientList() {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white rounded-lg p-6 w-full max-w-md">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold text=[#61387a]">Add New Member</h2>
+              <h2 className="text-xl font-bold text=[#61387a]">Add New Patient</h2>
               <button onClick={() => setIsModalOpen(false)} className="text-gray-500 hover:text-[#61387a] transition-colors duration-300">
                 <X className="w-6 h-6" />
               </button>
@@ -150,7 +150,7 @@ function PatientList() {
               placeholder="First Name"
               value={newPatient.first_name}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 mb-3 border] border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[#61387a]"
+              className="w-full px-3 py-2 mb-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[#61387a]"
               required
             />
             <input
@@ -192,7 +192,7 @@ function PatientList() {
                 onClick={handleAddPatient}
                 className="bg-[#61387a] text-white py-2 px-4 rounded hover:bg-[#412950] transition duration-300"
               >
-                Add Member
+                Add Patients
               </button>
             </div>
           </div>
@@ -206,13 +206,13 @@ function PatientList() {
           </div>
         ) : error === 'empty' ? (
           <div className="col-span-full flex flex-col items-center justify-center bg-gray-50 rounded-lg p-8">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">No Members Found</h3>
-            <p className="text-gray-600 mb-6 text-center">The database is currently empty. Please add members to get started.</p>
+            <h3 className="text-xl font-bold text-gray-800 mb-4">No Patients Found</h3>
+            <p className="text-gray-600 mb-6 text-center">The database is currently empty. Please add patients to get started.</p>
             <button 
               onClick={() => setIsModalOpen(true)}
               className="bg-teal-600 text-white py-2 px-4 rounded hover:bg-teal-700 transition duration-300"
             >
-              Add New Member
+              Add New Patient
             </button>
           </div>
         ) : error ? (
@@ -235,7 +235,7 @@ function PatientList() {
             </div>
           ))
         ) : (
-          <div className="col-span-full text-center text-gray-500 py-12">No faculty data available</div>
+          <div className="col-span-full text-center text-gray-500 py-12">No patient data available</div>
         )}
       </div>
     </div>

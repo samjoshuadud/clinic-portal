@@ -5,7 +5,7 @@ import Dashboard from './components/Dashboard';
 import PatientList from './components/PatientList';
 import PatientProfile from './components/PatientProfile';
 import AppointmentCalendar from './components/AppointmentCalendar';
-import Login from './hidden/Login';
+// import Login from './hidden/Login';
 import './index.css'; 
 // import PatientRecords from './components/PatientRecords';
 
@@ -45,8 +45,6 @@ function App() {
               <Route path="/patients" element={<PatientList />} />
               <Route path="/patient/:id" element={<PatientProfile />} />
               <Route path="/appointments" element={<AppointmentCalendar />} />
-              <Route path="/login" element={<Login />} />
-              {/* <Route path="/patientrecords/:id" element={<PatientRecords />} /> */}
             </Routes>
           </div>
         </main>
