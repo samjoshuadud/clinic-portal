@@ -132,7 +132,6 @@ function PatientProfile() {
     try {
       const response = await axios.delete(`http://localhost:5000/patients/${patient.id}`);
       if (response.status === 200) {
-        // Navigate back to the patient list page
         window.location.href = '/patients';
       } else {
         setError('Failed to delete patient. Please try again.');
@@ -149,7 +148,6 @@ function PatientProfile() {
   return (
     <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        {/* Success Popup */}
         {success && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div className="bg-white p-8 rounded-lg shadow-xl transform transition-all">

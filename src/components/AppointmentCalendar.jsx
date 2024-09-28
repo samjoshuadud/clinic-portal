@@ -41,7 +41,7 @@ function AppointmentCalendar() {
 
   const handleCreateAppointment = async () => {
     if (!appointmentTitle) {
-      setError('Appointment title is required');
+      setError('Please Input Title!');
       return;
     }
   
