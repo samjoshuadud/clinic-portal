@@ -23,10 +23,13 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
+// Serve static files from the Vite build directory
+app.use(express.static(path.join(__dirname, 'dist'))); // Ensure this points correctly
 
+// Serve index.html for all other routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html')); // Ensure this points correctly
+});
 
 const connection = createConnection();
 
