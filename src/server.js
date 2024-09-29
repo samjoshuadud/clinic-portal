@@ -23,6 +23,11 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
+
 const connection = createConnection();
 
 // Route to create a new patient (with an image)
