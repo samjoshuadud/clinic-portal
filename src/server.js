@@ -26,7 +26,7 @@ const upload = multer({ storage });
 const connection = createConnection();
 
 // Route to create a new patient (with an image)
-app.post('/patients', upload.single('image'), (req, res) => {
+app.post('/api/patients', upload.single('image'), (req, res) => {
   const {
     employee_number = '*', // Set default value to '*'
     first_name = '*',
@@ -65,7 +65,7 @@ app.post('/patients', upload.single('image'), (req, res) => {
     }
   );
 });
-app.get('/patients', (req, res) => {
+app.get('/api/patients', (req, res) => {
   const query = 'SELECT * FROM faculty_info';
   connection.query(query, (error, results) => {
     if (error) {
@@ -82,7 +82,7 @@ app.get('/patients', (req, res) => {
 });
 
 // Route to get a specific patient by ID
-app.get('patients/:id', (req, res) => {
+app.get('/api/patients/:id', (req, res) => {
   const { id } = req.params;
   const query = `
   SELECT *, DATE_FORMAT(birth_date, '%Y-%m-%d') AS birth_date 
@@ -105,7 +105,7 @@ app.get('patients/:id', (req, res) => {
   });
 });
 
-app.put('/patients/:id', (req, res) => {
+app.put('/api/patients/:id', (req, res) => {
   const { id } = req.params;
   console.log('Received update request for patient ID:', id);
   console.log('Request body:', req.body);
@@ -157,7 +157,7 @@ app.put('/patients/:id', (req, res) => {
 });
 
 // Route to delete a patient by ID
-app.delete('/patients/:id', (req, res) => {
+app.delete('/api/patients/:id', (req, res) => {
   const { id } = req.params;
   const query = 'DELETE FROM faculty_info WHERE id = ?';
   connection.query(query, [id], (error, results) => {
@@ -174,7 +174,7 @@ app.delete('/patients/:id', (req, res) => {
 
 
 
-app.get('/appointments', (req, res) => {
+app.get('/api/appointments', (req, res) => {
   connection.query('SELECT * FROM appointments', (err, results) => {
     if (err) {
       res.status(500).send({ error: 'Error fetching appointments', appointments: [] });
@@ -184,7 +184,7 @@ app.get('/appointments', (req, res) => {
   });
 });
 
-app.post('/appointments', (req, res) => {
+app.post('/api/appointments', (req, res) => {
   const { title, start, end } = req.body;
   connection.query('INSERT INTO appointments (title, start, end) VALUES (?, ?, ?)', [title, start, end], (err, results) => {
     if (err) {
@@ -195,7 +195,7 @@ app.post('/appointments', (req, res) => {
   });
 });
 
-app.delete('/appointments/:id', (req, res) => {
+app.delete('/api/appointments/:id', (req, res) => {
   const id = req.params.id;
   connection.query('DELETE FROM appointments WHERE id = ?', [id], (err, results) => {
     if (err) {

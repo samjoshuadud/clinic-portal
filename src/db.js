@@ -2,11 +2,10 @@ import mysql from 'mysql2';
 
 const createConnection = () => {
   const connection = mysql.createConnection({
-    host: 'sql308.infinityfree.com',
-    user: 'if0_37410039', // Default XAMPP MySQL username
-    port: '5432',
-    password: 'jSdnW8afXnebJ', 
-    database: 'if0_37410039_clinic_portal', // Your database name
+    host: 'localhost',
+    user: 'root', // Default XAMPP MySQL username
+    password: '', 
+    database: 'clinic_portal', // Your database name
   });
 
   connection.connect((err) => {
