@@ -20,7 +20,7 @@ function AppointmentCalendar() {
 
   const fetchAppointments = useCallback(async () => {
     try {
-      const response = await axios.get('/appointments');
+      const response = await axios.get('https://clinic-portal.onrender.com//appointments');
       if (response.data.error) {
         setError(response.data.error);
       } else {
@@ -58,7 +58,7 @@ function AppointmentCalendar() {
         end: endTime,
       };
   
-      const response = await axios.post('/appointments', newAppointment);
+      const response = await axios.post('https://clinic-portal.onrender.com//appointments', newAppointment);
   
       const createdAppointment = {
         ...response.data,
@@ -79,7 +79,7 @@ function AppointmentCalendar() {
 
   const handleCancelAppointment = async () => {
     try {
-      await axios.delete(`/appointments/${selectedAppointment.id}`);
+      await axios.delete(`https://clinic-portal.onrender.com//appointments/${selectedAppointment.id}`);
   
       // Remove the cancelled appointment from the state
       setAppointments(prevAppointments => 

@@ -82,7 +82,7 @@ app.get('/patients', (req, res) => {
 });
 
 // Route to get a specific patient by ID
-app.get('/patients/:id', (req, res) => {
+app.get('patients/:id', (req, res) => {
   const { id } = req.params;
   const query = `
   SELECT *, DATE_FORMAT(birth_date, '%Y-%m-%d') AS birth_date 
