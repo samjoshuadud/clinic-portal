@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Plus, X } from 'lucide-react';
 const apiUrl = import.meta.env.VITE_API_URL;
+console.log('Environment Variables:', import.meta.env);
 
 console.log("Env:", apiUrl);
 function PatientList() {

@@ -17,10 +17,11 @@ function AppointmentCalendar() {
   const [appointmentTitle, setAppointmentTitle] = useState('');
   const [slotInfo, setSlotInfo] = useState(null);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const fetchAppointments = useCallback(async () => {
     try {
-      const response = await axios.get('/api/appointments');
+      const response = await axios.get(`${apiUrl}/api/appointments`);
       if (response.data.error) {
         setError(response.data.error);
       } else {
@@ -58,7 +59,7 @@ function AppointmentCalendar() {
         end: endTime,
       };
   
-      const response = await axios.post('/api/appointments', newAppointment);
+      const response = await axios.post(`${apiUrl}/api/appointments`, newAppointment);
   
       const createdAppointment = {
         ...response.data,
@@ -79,7 +80,7 @@ function AppointmentCalendar() {
 
   const handleCancelAppointment = async () => {
     try {
-      await axios.delete(`/api/appointments/${selectedAppointment.id}`);
+      await axios.delete(`${apiUrl}/api/appointments/${selectedAppointment.id}`);
   
       // Remove the cancelled appointment from the state
       setAppointments(prevAppointments => 
