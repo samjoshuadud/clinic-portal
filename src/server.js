@@ -23,13 +23,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// Serve static files from the Vite build directory
-app.use(express.static(path.join(__dirname, '../dist'))); // Ensure this points correctly
-
-// Serve index.html for all other routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../dist', 'index.html')); // Ensure this points correctly
-});
 
 const connection = createConnection();
 
@@ -213,6 +206,15 @@ app.delete('/api/appointments/:id', (req, res) => {
     }
   });
 });
+
+// Serve static files from the Vite build directory
+app.use(express.static(path.join(__dirname, '../dist')));
+
+// Catch-all route for the frontend
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist', 'index.html'));
+});
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
