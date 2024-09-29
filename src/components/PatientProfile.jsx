@@ -16,25 +16,6 @@ function PatientProfile() {
 
   const toggleDetails = async () => {
     setShowDetails(!showDetails);
-    try {
-      const medicalRecordsText = `${patient.diagnosis} ${patient.surgicalHistory} ${patient.surgeryDetails} ${patient.allergies} ${patient.medications}`;
-      const geminiApiUrl = 'https://generativelanguage.googleapis.com';
-      const geminiApiKey = 'AIzaSyCcK-lSk9xQN-KhhDDE4RQvvoeQh8G0RC8';
-  
-      const response = await axios.post(geminiApiUrl, {
-        text: medicalRecordsText,
-      }, {
-        headers: {
-          'Authorization': `Bearer ${geminiApiKey}`,
-        },
-      });
-      const summary = response.data.summary;
-      console.log(summary);
-      // You can also update the state with the summary here
-      setSummary(summary);
-    } catch (error) {
-      console.error(error);
-    }
   }; // TRY LATER IF MATAPOS
 
   useEffect(() => {
