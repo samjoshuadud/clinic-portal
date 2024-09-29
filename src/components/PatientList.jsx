@@ -33,7 +33,7 @@ function PatientList() {
     console.log("fetchPatients function called");
     try {
       console.log("Making API request");
-      const response = await axios.get('http://localhost:5000/patients');
+      const response = await axios.get('/patients');
       console.log('Raw API response:', response);
       console.log('API response data:', response.data);
       console.log('Is response.data an array?', Array.isArray(response.data));
@@ -100,7 +100,7 @@ function PatientList() {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/patients', formData, {
+      const response = await axios.post('/patients', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

@@ -6,7 +6,7 @@ const createConnection = () => {
     user: 'if0_37410039', // Default XAMPP MySQL username
     port: '5432',
     password: 'jSdnW8afXnebJ', 
-    database: 'clinic_portal', // Your database name
+    database: 'if0_37410039_clinic_portal', // Your database name
   });
 
   connection.connect((err) => {

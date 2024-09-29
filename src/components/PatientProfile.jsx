@@ -24,7 +24,7 @@ function PatientProfile() {
 
   const fetchPatient = async (patientId) => {
     try {
-      const response = await axios.get(`http://localhost:5000/patients/${patientId}`);
+      const response = await axios.get(`/patients/${patientId}`);
       const patientData = {
         id: response.data.id,
         employeeNumber: response.data.employee_number,
@@ -75,7 +75,7 @@ function PatientProfile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:5000/patients/${patient.id}`, {
+      const response = await axios.put(`/patients/${patient.id}`, {
         employee_number: patient.employeeNumber,
         first_name: patient.firstName,
         last_name: patient.lastName,
@@ -111,7 +111,7 @@ function PatientProfile() {
 
   const handleDelete = async () => {
     try {
-      const response = await axios.delete(`http://localhost:5000/patients/${patient.id}`);
+      const response = await axios.delete(`/patients/${patient.id}`);
       if (response.status === 200) {
         window.location.href = '/patients';
       } else {

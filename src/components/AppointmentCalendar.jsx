@@ -20,7 +20,7 @@ function AppointmentCalendar() {
 
   const fetchAppointments = useCallback(async () => {
     try {
-      const response = await axios.get('http://localhost:5000/appointments');
+      const response = await axios.get('/appointments');
       if (response.data.error) {
         setError(response.data.error);
       } else {
@@ -58,7 +58,7 @@ function AppointmentCalendar() {
         end: endTime,
       };
   
-      const response = await axios.post('http://localhost:5000/appointments', newAppointment);
+      const response = await axios.post('/appointments', newAppointment);
   
       const createdAppointment = {
         ...response.data,
@@ -79,7 +79,7 @@ function AppointmentCalendar() {
 
   const handleCancelAppointment = async () => {
     try {
-      await axios.delete(`http://localhost:5000/appointments/${selectedAppointment.id}`);
+      await axios.delete(`/appointments/${selectedAppointment.id}`);
   
       // Remove the cancelled appointment from the state
       setAppointments(prevAppointments => 
