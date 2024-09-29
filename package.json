@@ -7,8 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "node src/server.js"
   },
+
+
+  
   "dependencies": {
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.7",
