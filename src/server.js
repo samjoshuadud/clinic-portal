@@ -24,7 +24,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Serve static files from the Vite build directory
-app.use(express.static(path.join(__dirname, 'dist'))); // Ensure this points correctly
+app.use(express.static(path.join(__dirname, '../dist'))); // Ensure this points correctly
 
 // Serve index.html for all other routes
 app.get('*', (req, res) => {
