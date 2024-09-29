@@ -13,6 +13,7 @@ function PatientProfile() {
   const [showSurgeryDetails, setShowSurgeryDetails] = useState(false); // State to manage hidden input
   
   const [loading, setLoading] = useState(false);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const toggleDetails = async () => {
     setShowDetails(!showDetails);
@@ -24,7 +25,7 @@ function PatientProfile() {
 
   const fetchPatient = async (patientId) => {
     try {
-      const response = await axios.get(`/patients/${patientId}`);
+      const response = await axios.get(`${apiUrl}/api/patients/${patientId}`);
       const patientData = {
         id: response.data.id,
         employeeNumber: response.data.employee_number,
@@ -75,7 +76,7 @@ function PatientProfile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`/patients/${patient.id}`, {
+      const response = await axios.put(`${apiUrl}/api/patients/${patient.id}`, {
         employee_number: patient.employeeNumber,
         first_name: patient.firstName,
         last_name: patient.lastName,
@@ -111,7 +112,7 @@ function PatientProfile() {
 
   const handleDelete = async () => {
     try {
-      const response = await axios.delete(`:/patients/${patient.id}`);
+      const response = await axios.delete(`${apiUrl}/api/patients/${patient.id}`);
       if (response.status === 200) {
         window.location.href = '/patients';
       } else {
