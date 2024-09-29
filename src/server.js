@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, '../dist'))); // Ensure this points 
 
 // Serve index.html for all other routes
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html')); // Ensure this points correctly
+  res.sendFile(path.join(__dirname, '../dist', 'index.html')); // Ensure this points correctly
 });
 
 const connection = createConnection();
