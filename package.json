@@ -8,11 +8,11 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
-
-
-  
+  "homepage": "https://samjoshuadud.github.io/clinic-portal",
   "dependencies": {
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.7",
@@ -46,7 +46,7 @@
     "eslint-plugin-react-refresh": "^0.4.9",
     "gh-pages": "^6.1.1",
     "globals": "^15.9.0",
-    "vite": "^5.4.1"
-  },
-  "proxy": "http://localhost:5000"
+    "vite": "^5.4.8"
+  }
+  
 }

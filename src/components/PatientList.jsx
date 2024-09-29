@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Plus, X } from 'lucide-react';
-const apiUrl = import.meta.env.VITE_API_URL;
+const apiUrl = import.meta.env.VITE_API_URL || '';
 
 
 function PatientList() {
@@ -25,6 +25,7 @@ function PatientList() {
     image: null,
   });
 
+
   useEffect(() => {
     console.log("Component mounted, calling fetchPatients");
     fetchPatients();
@@ -34,7 +35,7 @@ function PatientList() {
     console.log("fetchPatients function called");
     try {
       console.log("Making API request");
-      const response = await axios.get(`${apiUrl}/api/patients`);
+      const response = await axios.get(`https://clinic-portal.onrender.com/api/patients`);
       console.log('Raw API response:', response);
       console.log('API response data:', response.data);
       console.log('Is response.data an array?', Array.isArray(response.data));
@@ -101,7 +102,7 @@ function PatientList() {
     }
 
     try {
-      const response = await axios.post(`${apiUrl}/api/patients`, formData, {
+      const response = await axios.post(`https://clinic-portal.onrender.com/api/patients`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
