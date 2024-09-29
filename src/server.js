@@ -76,7 +76,7 @@ app.get('/api/patients', (req, res) => {
     }
     const patients = results.map(patient => ({
       ...patient,
-      image: `/src/components/images/${patient.image}`, // Adjusted image path
+      image: `/images/${patient.image}`, // Adjusted image path
     }));
     res.json(patients);
   });
@@ -100,7 +100,7 @@ app.get('/api/patients/:id', (req, res) => {
     }
     const patient = {
       ...results[0],
-      image: `/src/components/images/${results[0].image}`
+      image: `/images/${results[0].image}`
     };
     res.json(patient);
   });
