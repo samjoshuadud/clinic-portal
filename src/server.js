@@ -5,12 +5,13 @@ import { fileURLToPath } from 'url';
 import { createConnection } from './db.js';
 import multer from 'multer'; // For handling image uploads
 
+const url = 'https://clinic-portal.onrender.com';
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Use CORS and JSON middleware
-app.use(cors());
+app.use(cors({origin: url}));
 app.use(express.json());
 
 const connection = createConnection();
