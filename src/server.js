@@ -3,36 +3,26 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { createConnection } from './db.js';
-import { format } from 'date-fns'; // Import date-fns for formatting dates
 import multer from 'multer'; // For handling image uploads
 
-const url = 'https://clinic-portal.onrender.com'
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// app.use(cors({origin: url})); // production
-
+// Use CORS and JSON middleware
 app.use(cors());
 app.use(express.json());
-app.use('/images', express.static(path.join(__dirname, 'images')));
-
-// Setup multer for image uploads
-const storage = multer.diskStorage({
-  destination: path.join(__dirname, 'images'),
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`);
-  }
-});
-const upload = multer({ storage });
-
 
 const connection = createConnection();
+
+// Setup multer for image uploads (store the file in memory)
+const storage = multer.memoryStorage(); // Store the file in memory
+const upload = multer({ storage });
 
 // Route to create a new patient (with an image)
 app.post('/api/patients', upload.single('image'), (req, res) => {
   const {
-    employee_number = '*', // Set default value to '*'
+    employee_number = '*',
     first_name = '*',
     last_name = '*',
     birth_date = '*',
@@ -45,8 +35,8 @@ app.post('/api/patients', upload.single('image'), (req, res) => {
     activeness = 'Active'
   } = req.body;
 
-  // If an image is uploaded, set the image path; otherwise, set it to '*'
-  const image = req.file ? req.file.filename : '*';
+  // If an image is uploaded, set the image data; otherwise, set it to null
+  const image = req.file ? req.file.buffer : null; // Store image data as buffer
 
   const query = `
     INSERT INTO faculty_info (employee_number, first_name, last_name, 
@@ -69,6 +59,8 @@ app.post('/api/patients', upload.single('image'), (req, res) => {
     }
   );
 });
+
+// Route to get all patients
 app.get('/api/patients', (req, res) => {
   const query = 'SELECT * FROM faculty_info';
   connection.query(query, (error, results) => {
@@ -79,7 +71,7 @@ app.get('/api/patients', (req, res) => {
     }
     const patients = results.map(patient => ({
       ...patient,
-      image: `/src/images/${patient.image}`, // Adjusted image path
+      image: patient.image ? `data:image/jpeg;base64,${patient.image.toString('base64')}` : null, // Convert image BLOB to base64
     }));
     res.json(patients);
   });
@@ -89,10 +81,10 @@ app.get('/api/patients', (req, res) => {
 app.get('/api/patients/:id', (req, res) => {
   const { id } = req.params;
   const query = `
-  SELECT *, DATE_FORMAT(birth_date, '%Y-%m-%d') AS birth_date 
-  FROM faculty_info 
-  WHERE id = ?
-`;
+    SELECT *, DATE_FORMAT(birth_date, '%Y-%m-%d') AS birth_date 
+    FROM faculty_info 
+    WHERE id = ?
+  `;
   connection.query(query, [id], (error, results) => {
     if (error) {
       res.status(500).json({ error: 'Error fetching patient details. Please try again later.' });
@@ -103,12 +95,13 @@ app.get('/api/patients/:id', (req, res) => {
     }
     const patient = {
       ...results[0],
-      image: `/src/images/${results[0].image}`
+      image: results[0].image ? `data:image/jpeg;base64,${results[0].image.toString('base64')}` : null // Convert image BLOB to base64
     };
     res.json(patient);
   });
 });
 
+// Update patient details
 app.put('/api/patients/:id', (req, res) => {
   const { id } = req.params;
   console.log('Received update request for patient ID:', id);
@@ -176,8 +169,7 @@ app.delete('/api/patients/:id', (req, res) => {
   });
 });
 
-
-
+// Appointments routes
 app.get('/api/appointments', (req, res) => {
   connection.query('SELECT * FROM appointments', (err, results) => {
     if (err) {
@@ -217,7 +209,6 @@ app.use(express.static(path.join(__dirname, '../dist')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist', 'index.html'));
 });
-
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

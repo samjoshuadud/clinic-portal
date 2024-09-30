@@ -1,11 +1,11 @@
+// File: src/components/PatientList.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Plus, X } from 'lucide-react';
-const apiUrl = import.meta.env.VITE_API_URL;
-console.log('Environment Variables:', import.meta.env);
 
-console.log("Env:", apiUrl);
+const apiUrl = import.meta.env.VITE_API_URL;
+
 function PatientList() {
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -26,32 +26,19 @@ function PatientList() {
     image: null,
   });
 
-
   useEffect(() => {
-    console.log("Component mounted, calling fetchPatients");
     fetchPatients();
   }, []);
 
   const fetchPatients = async () => {
-    console.log("fetchPatients function called");
     try {
-      console.log("Making API request");
       const response = await axios.get(`${apiUrl}/api/patients`);
-      console.log('Raw API response:', response);
-      console.log('API response data:', response.data);
-      console.log('Is response.data an array?', Array.isArray(response.data));
-
       if (Array.isArray(response.data)) {
         setPatients(response.data);
-      } else if (response.data.message && response.data.message.includes('No patients found')) {
-        setPatients([]);
-        setError('empty');
       } else {
-        console.error('Unexpected data structure:', response.data);
         setError('Unexpected data structure received from server.');
       }
     } catch (err) {
-      console.error('Error fetching patients:', err);
       if (err.response && err.response.status === 404) {
         setError('empty');
       } else {
@@ -73,16 +60,11 @@ function PatientList() {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setNewPatient((prevPatient) => ({
-        ...prevPatient,
+      setNewPatient((prev) => ({
+        ...prev,
         image: file, // Save the file object for upload
       }));
     }
-  };
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setNewPatient((prev) => ({ ...prev, image: file }));
   };
 
   const handleAddPatient = async () => {
@@ -108,17 +90,23 @@ function PatientList() {
           'Content-Type': 'multipart/form-data',
         },
       });
-      console.log('Patient added successfully:', response.data);
       setIsModalOpen(false); // Close modal after adding patient
       fetchPatients(); // Update the patients list after adding a new patient
+      // Reset the new patient form
       setNewPatient({
         first_name: '',
         last_name: '',
-        email: '',
+        employee_number: '',
         birth_date: '',
+        gender: '',
+        email: '',
+        house_num: '',
+        street: '',
+        barangay: '',
+        city: '',
+        activeness: '',
         image: null,
       });
-      setIsModalOpen(false);
     } catch (error) {
       console.error('Error adding patient:', error);
     }
@@ -185,7 +173,7 @@ function PatientList() {
             <input
               type="file"
               name="image"
-              onChange={handleFileChange}
+              onChange={handleFileChange} // Update to use handleFileChange
               className="w-full px-3 py-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[#61387a]"
               accept="image/*"
               required
@@ -195,7 +183,7 @@ function PatientList() {
                 onClick={handleAddPatient}
                 className="bg-[#61387a] text-white py-2 px-4 rounded hover:bg-[#412950] transition duration-300"
               >
-                Add Patients
+                Add Patient
               </button>
             </div>
           </div>
@@ -243,7 +231,6 @@ function PatientList() {
       </div>
     </div>
   );
-  
 }
 
 export default PatientList;
