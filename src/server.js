@@ -6,11 +6,12 @@ import { createConnection } from './db.js';
 import { format } from 'date-fns'; // Import date-fns for formatting dates
 import multer from 'multer'; // For handling image uploads
 
+const url = 'https://clinic-portal.onrender.com'
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.use(cors());
+app.use(cors({origin: url}));
 app.use(express.json());
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
@@ -76,7 +77,7 @@ app.get('/api/patients', (req, res) => {
     }
     const patients = results.map(patient => ({
       ...patient,
-      image: `/images/${patient.image}`, // Adjusted image path
+      image: `/src/images/${patient.image}`, // Adjusted image path
     }));
     res.json(patients);
   });
@@ -100,7 +101,7 @@ app.get('/api/patients/:id', (req, res) => {
     }
     const patient = {
       ...results[0],
-      image: `/images/${results[0].image}`
+      image: `/src/images/${results[0].image}`
     };
     res.json(patient);
   });
